@@ -1,7 +1,14 @@
 import argparse
 
+from mcdack.create    import create_project
+from mcdack.compile   import compile_project
+
 # define arguments parser
-parser = argparse.ArgumentParser(description='MCDACK: A tool for creating and compiling Minecraft data packs.')
+parser = argparse.ArgumentParser(
+    description='MCDACK: A tool for creating and compiling Minecraft data packs.',
+    prog='python -m mcdack'
+)
+
 
 # add subparsers for commands
 subparsers = parser.add_subparsers(dest='command')
@@ -18,16 +25,12 @@ compile_parser.add_argument('-z', '--zip', action='store_true', help='Zip the co
 # parse arguments
 args = parser.parse_args()
 
-# handle commands
+
+
+
 if args.command == 'create':
-    # handle create command
-    print(f"Creating a new data pack template: {args.project_name}")
-    # ...existing code for creating a template...
+    create_project(args.project_name)
 elif args.command == 'compile':
-    # handle compile command
-    print(f"Compiling the data pack: {args.project_name}")
-    if args.zip:
-        print("Zipping the compiled data pack")
-    # ...existing code for compiling the data pack...
+    compile_project(args.project_name, args.zip)
 else:
     parser.print_help()

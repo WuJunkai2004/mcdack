@@ -173,3 +173,7 @@ cython_debug/
 
 # raw data
 rawdata/
+
+# test data
+example/
+test/

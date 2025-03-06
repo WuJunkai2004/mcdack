@@ -8,7 +8,7 @@ class _meta:
         self._data = {}
 
     def id(self):
-        return self._name
+        return f'minecraft:{self._name}'
     
     def type(self):
         return self._type
@@ -23,12 +23,16 @@ class _meta:
         return nbt
     
 
-class _block:
-    def __init__(self, file):
+class _metaset:
+    def __init__(self, file, type):
         self._file = file
-        with open(file, 'r') as f:
-            for line in f:
-                block_id = line.strip()
-                setattr(self, block_id, _meta('block', block_id))
+        self._type = type
+        f = open(file, 'r')
+        for line in f:
+            name = line.strip()
+            setattr(self, name, _meta(type, name))
+        f.close()
 
-block = _block('mcdack/raw/block_id.txt')
+
+block = _metaset('mcdack/raw/block_id.txt', 'block')
+item  = _metaset('mcdack/raw/item_id.txt',  'item')
