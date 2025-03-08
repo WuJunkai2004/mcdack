@@ -1,7 +1,7 @@
 ''''''
 
 
-class _meta:
+class _data:
     def __init__(self, type, name):
         self._type = type
         self._name = name
@@ -23,16 +23,16 @@ class _meta:
         return nbt
     
 
-class _metaset:
+class _dataset:
     def __init__(self, file, type):
         self._file = file
         self._type = type
         f = open(file, 'r')
         for line in f:
             name = line.strip()
-            setattr(self, name, _meta(type, name))
+            setattr(self, name, _data(type, name))
         f.close()
 
 
-block = _metaset('mcdack/raw/block_id.txt', 'block')
-item  = _metaset('mcdack/raw/item_id.txt',  'item')
+block = _dataset('raw/block_id.txt', 'block')
+item  = _dataset('raw/item_id.txt',  'item')

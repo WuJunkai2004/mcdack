@@ -2,6 +2,8 @@ import json
 
 from mcdack.metadata import *
 
+__all__ = ["crafting", "stonecutting", "smelting"]
+
 def _get_item_id(item):
     if hasattr(item, "id"):
         return item.id()
@@ -26,6 +28,7 @@ class crafting:
         self.result = None
         self.result_count = 1
         self.group = None
+        self.is_vanilla = False
     
     def group(self, group):
         self.group = group
@@ -35,7 +38,11 @@ class crafting:
         self.result = result
         self.result_count = count
         return self
-    
+
+    def vanilla(self):
+        self.is_vanilla = True
+        return self
+
     def finish(self):
         file_name = str(id(self)) + ".json"
         result = {
